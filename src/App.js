@@ -1,25 +1,50 @@
-import logo from "./logo.svg";
+import React, { Component } from "react";
+import { ToastContainer } from "react-toastify";
+import Searchbar from "./components/Searchbar/Searchbar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import Modal from "./components/Modal/Modal";
 import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  static defaultProps = {};
+
+  static propTypes = {};
+
+  state = {
+    pictureQuery: "",
+    showModal: false,
+    modalPicture: "",
+  };
+
+  handleFormSubmit = (pictureQuery) => {
+    this.setState({ pictureQuery });
+  };
+
+  openModal = (modalPicture) => {
+    this.setState({
+      showModal: true,
+      modalPicture,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
+
+  render() {
+    const { pictureQuery, showModal, modalPicture } = this.state;
+
+    return (
+      <div>
+        <Searchbar onSubmit={this.handleFormSubmit} />
+        <ImageGallery query={pictureQuery} onClick={this.openModal} />
+        {showModal && (
+          <Modal modalPicture={modalPicture} onClose={this.closeModal} />
+        )}
+        <ToastContainer position="top-center" autoClose={2000} />
+      </div>
+    );
+  }
 }
 
 export default App;
