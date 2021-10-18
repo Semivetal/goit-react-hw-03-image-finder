@@ -1,3 +1,9 @@
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 *,
 ::after,
 ::before {
@@ -16,4 +22,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
