@@ -25,12 +25,10 @@ class ImageGallery extends Component {
     if (prevProps.query !== this.props.query) {
       this.setState({ status: "pending", pictures: [], page: 1 });
       await this.getPicturesAfterNewSearch();
-      this.autoScroll();
     }
     if (prevState.page !== this.state.page && this.state.page > 1) {
       this.setState({ status: "pending-ready" });
       await this.getPicturesFromNextPage();
-      this.autoScroll();
     }
   }
 
@@ -50,6 +48,7 @@ class ImageGallery extends Component {
           pictures: [...prevState.pictures, ...picturesArray],
           status: "resolved",
         }));
+        this.autoScroll();
       })
       .catch((error) => this.setState({ error, status: "rejected" }));
   };
