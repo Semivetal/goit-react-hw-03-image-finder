@@ -22,8 +22,8 @@ class ImageGallery extends Component {
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    if (prevProps.query !== this.props.query) {
-      this.setState({ status: "pending", pictures: [], page: 1 });
+    if (this.props.query !== prevProps.query) {
+      this.setState({ page: 1, pictures: [], status: "pending" });
       await this.getPicturesAfterNewSearch();
     }
     if (prevState.page !== this.state.page && this.state.page > 1) {
@@ -33,7 +33,7 @@ class ImageGallery extends Component {
   }
 
   getPicturesAfterNewSearch = async () => {
-    await picturesAPI(this.props.query, this.state.page)
+    await picturesAPI(this.props.query)
       .then((pictures) => {
         this.setState({ pictures: pictures.hits, status: "resolved" });
       })
